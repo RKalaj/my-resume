@@ -1,0 +1,56 @@
+{% extends "home-base.html" %}
+
+{% block title %}
+Add Courses
+{% endblock %}
+
+{% block active_tab %}
+<li class="nav-item">
+  <a class="nav-link" href="/">Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/about">About</a>
+</li>
+<li class="nav-item active">
+  <a class="nav-link" href="/courses">Courses</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/profs">Professors</a>
+</li>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="mt-5">Add Courses</h1>
+
+      <form action="/courses/add" method="post">
+      <label>Course number</label>
+      <input type="text" name="number"><br><br>
+      <label>Course title</label>
+      <input type="text" name="title"><br><br>
+      <label>Course description</label>
+      <input type="text" name="desc"><br><br>
+      <label>Professor Name</label>
+      <select name="prof">
+        {% for prof in prof %}
+          <option>{{prof.name}}</option>
+        {% endfor %}
+      </select><br><br>
+      <input type="submit" value="Submit">
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{super()}}
+  <script>
+  $(document).ready(function () {
+    $('#developer').tooltip()
+  });
+  </script>
+{% endblock %}

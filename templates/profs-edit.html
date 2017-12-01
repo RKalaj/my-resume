@@ -1,20 +1,11 @@
 {% extends "home-base.html" %}
 
-{% block head %}
-{{super()}}
-<style>
-  h1 {
-    color:green;
-  }
-</style>
-{% endblock %}
-
 {% block title %}
-Homepage
+Edit Professors
 {% endblock %}
 
 {% block active_tab %}
-<li class="nav-item active">
+<li class="nav-item">
   <a class="nav-link" href="/">Home</a>
 </li>
 <li class="nav-item">
@@ -23,7 +14,7 @@ Homepage
 <li class="nav-item">
   <a class="nav-link" href="/courses">Courses</a>
 </li>
-<li class="nav-item">
+<li class="nav-item active">
   <a class="nav-link" href="/profs">Professors</a>
 </li>
 {% endblock %}
@@ -31,13 +22,20 @@ Homepage
 {% block page_content %}
 <div class="container">
   <div class="row">
-    <div class="col-lg-12 text-center">
-      <h1 class="mt-5">This is the Homepage</h1>
-        <p>Welcome to my resume website!</p>
+    <div class="col-lg-12">
+      <h1 class="mt-5">Edit Professors</h1>
+
+      <form action="/profs/edit/{{prof.id}}" method="post">
+      <label>Professor name</label>
+      <input class="form-control" type="text" name="name" value="{{prof.name}}" required="true"><br>
+      <label>Department</label>
+      <input class="form-control" type="text" name="department" value="{{prof.department}}" required="true"><br>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+
     </div>
   </div>
 </div>
-
 {% endblock %}
 
 {% block scripts %}

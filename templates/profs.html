@@ -1,0 +1,75 @@
+{% extends "home-base.html" %}
+
+{% block head %}
+{{super()}}
+<style>
+  h1 {
+    color:blue;
+  }
+  .courses {
+    padding-top: 10px;
+  }
+</style>
+{% endblock %}
+
+{% block title %}
+Professors
+{% endblock %}
+
+{% block active_tab %}
+<li class="nav-item">
+  <a class="nav-link" href="/">Home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/about">About</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/courses">Courses</a>
+</li>
+<li class="nav-item active">
+  <a class="nav-link" href="/profs">Professors</a>
+</li>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h1 class="mt-5">These are my Professors</h1>
+      <div class="row bottom-margin">
+        <a href="/profs/add" class="btn btn-primary" role="button" aria-disabled="true">Add Professor</a>
+      </div>
+      {% if prof %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+        {% for prof in prof %}
+        <tr>
+            <th scope="row">{{prof.id}}</th>
+            <td>{{prof.name}}</td>
+            <td>{{prof.department}}</td>
+            <td>
+              <a href="/profs/edit/{{prof.id}}" class="btn btn-success" role="button">Edit</a>
+            </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+    </table>
+  {% endif %}
+{% endblock %}
+
+{% block scripts %}
+  {{super()}}
+  <script>
+  $(document).ready(function () {
+    $('#developer').tooltip()
+  });
+  </script>
+{% endblock %}
