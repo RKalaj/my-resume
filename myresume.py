@@ -81,6 +81,19 @@ def edit_prof(id):
         return redirect(url_for('get_prof'))
 
 
+@app.route('/profs/delete/<int:id>', methods=['GET', 'POST'])
+def delete_prof(id):
+    prof = Prof.query.filter_by(id=id).first()
+    if request.method == 'GET':
+        return render_template('profs-delete.html', prof=prof)
+    if request.method == 'POST':
+        # delete the artist by id
+        # all related songs are deleted as well
+        db.session.delete(prof)
+        db.session.commit()
+        return redirect(url_for('get_prof'))
+
+
 @app.route('/courses/add', methods=['GET', 'POST'])
 def add_courses():
     prof = Prof.query.all()
@@ -117,6 +130,20 @@ def edit_courses(id):
         prof = Prof.query.filter_by(name=prof_name).first()
         courses.prof = prof
         # update the database
+        db.session.commit()
+        return redirect(url_for('get_courses'))
+
+
+@app.route('/courses/delete/<int:id>', methods=['GET', 'POST'])
+def delete_courses(id):
+    courses = Courses.query.filter_by(id=id).first()
+    prof = Prof.query.all()
+    if request.method == 'GET':
+        return render_template('courses-delete.html', courses=courses, prof=prof)
+    if request.method == 'POST':
+        # use the id to delete the song
+        # song.query.filter_by(id=id).delete()
+        db.session.delete(courses)
         db.session.commit()
         return redirect(url_for('get_courses'))
 
